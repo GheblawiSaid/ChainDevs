@@ -1,3 +1,38 @@
+<?php
+
+@include 'config.php';
+
+if(isset($_POST['submit'])){
+
+   $name = mysqli_real_escape_string($conn, $_POST['name']);
+   $email = mysqli_real_escape_string($conn, $_POST['email']);
+   $pass = md5($_POST['password']);
+   $cpass = md5($_POST['cpassword']);
+   $user_type = $_POST['user_type'];
+
+   $select = " SELECT * FROM user_form WHERE email = '$email' && password = '$pass' ";
+
+   $result = mysqli_query($conn, $select);
+
+   if(mysqli_num_rows($result) > 0){
+
+      $error[] = 'user already exist!';
+
+   }else{
+
+      if($pass != $cpass){
+         $error[] = 'password not matched!';
+      }else{
+         $insert = "INSERT INTO user_form(name, email, password, user_type) VALUES('$name','$email','$pass','$user_type')";
+         mysqli_query($conn, $insert);
+         header('location:Signin.php');
+      }
+   }
+
+};
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +69,14 @@
 					<span class="login100-form-title">
 						Member Sign up
 					</span>
+					
+					<?php
+      				if(isset($error)){
+         			foreach($error as $error){
+           			 echo '<span class="error-msg">'.$error.'</span>';
+         			};
+      				};
+      				?>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid name is required: ytud ghser">
 
@@ -62,8 +105,21 @@
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
 					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="cpass" placeholder="Confirm your password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<select name="user_type" class="input100">
+         			<option value="user">USER</option>
+         			<option value="admin">ADMIN</option>
+      				</select>
 						
-					<div class="container-login100-form-btn">
+					<div class="container-login100-form-btn" name="submit">
 						<button class="login100-form-btn">
 							Sign up
 						</button>
