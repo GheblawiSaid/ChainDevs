@@ -109,7 +109,7 @@
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
-                                    <h1 class="display-1 text-white mb-5 animated slideInDown">Make Your Way Easier</h1>
+                                    <h1 class="display-1 text-white mb-5 animated slideInDown">Make Your Way much Easier</h1>
                                     <a class="btn btn-primary py-3 px-4" href="trip-list.php">See Trips</a>
                                 </div>
                             </div>
