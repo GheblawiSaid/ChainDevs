@@ -65,15 +65,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/addclass" class="nav-link">
+                <a href="/addChat" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Chat</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/showclass" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Show Chats</p>
+                  <p>Chat</p>
                 </a>
               </li>
             </ul>
@@ -87,14 +81,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="/addstudent" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Notification</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
-                <a href="/showstudent" class="nav-link">
+                <a href="/allNotifications" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Show Notifications</p>
                 </a>
@@ -105,21 +99,15 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                Manage Courses
+                Users
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/addcourse" class="nav-link">
+                <a href="/allUsers" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Course</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/showcourse" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Show Courses</p>
+                  <p>Show Users</p>
                 </a>
               </li>
             </ul>

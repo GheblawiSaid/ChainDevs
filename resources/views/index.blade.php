@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link
       href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
   rel="stylesheet"
@@ -27,10 +27,10 @@
     <nav class="navigation__nav">
       <ul class="navigation__list">
         <li class="navigation__item">
-          <a href="#" class="navigation__link"><span>01</span>About Booking</a>
+          <a href="/login" class="navigation__link"><span>01</span>Login</a>
         </li>
         <li class="navigation__item">
-          <a href="#" class="navigation__link"><span>02</span>Your benefits</a>
+          <a href="/register" class="navigation__link"><span>02</span>Register</a>
         </li>
         <li class="navigation__item">
           <a href="#" class="navigation__link"><span>03</span>Popular Deals</a>
@@ -154,6 +154,7 @@
         <h2 class="heading-secondary">Most popular Deals</h2>
       </div>
       <div class="row">
+         @foreach($rides as $ride)
         <div class="col-1-of-3">
           <div class="card">
             <div class="card__side card__side--front">
@@ -163,83 +164,51 @@
               </h4>
               <div class="card__details">
                 <ul>
-                  <li>Origion: moraco</li>
-                  <li>Destination: Dimitri</li>
-                  <li>Per Km: 5$</li>
-                  <li>Booking Time: 12:56</li>
-                  <li>Capacity : 4</li>
-                  <li>Available : 2</li>
+                  <li>{{ $ride['title'] }}</li>
+                  <li>{{ $ride['description'] }}</li>
+                  <li>Origion: {{ $ride['origion'] }}</li>
+                  <li>Destination: {{ $ride['destination'] }}</li>
+                  <li>Booking Time: {{ $ride['timeOfRide'] }}</li>
+                  <li>Capacity : {{ $ride['totalCapacity'] }}</li>
+                  <li>Available : {{ $ride['availableCapacity'] }}</li>
                 </ul>
               </div>
             </div>
             <div class="card__side card__side--back card__side--back-1">
               <div class="card__cta">
+                @if (auth()->check())
                 <div class="card__price-box">
+
                   <p class="card__price-only">only</p>
-                  <p class="card__price-value">$299</p>
+                  <p class="card__price-value">${{ $ride['price'] }}</p>
                 </div>
-                <a href="#" class="btn btn--white">Book now!</a>
-              </div>
+                    @if($ride['availableCapacity']>0)
+                    <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Chat now!</a>
+                    <form action="/bookRideWithUser/{{ $ride['id'] }}/{{ Auth::user()->id }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn--white u-margin-top-small">Book now!</button>
+                        <!-- <h 3class="btn btn--white u-margin-top-small">Book now!</h> -->
+                    </form>
+                    @else
+                    <div class="card__price-box">
+                    <p class="card__price-only">This ride is full of capacity</p>
+                    </div>
+                    @endif
+                @else
+                <div class="card__price-box">
+                 <p class="card__price-only">Please login first</p>
+                </div>
+                 @endif
+            </div>
             </div>
           </div>
         </div>
-        <div class="col-1-of-3">
-          <div class="card">
-            <div class="card__side card__side--front">
-              <div class="card__picture card__picture--2">&nbsp;</div>
-              <h4 class="card__heading">
-                <span class="card__heading-span card__heading-span--2">Cream fastest Drive</span>
-              </h4>
-              <div class="card__details">
-                <ul>
-                  <li>Origion: moraco</li>
-                  <li>Destination: Dimitri</li>
-                  <li>Per Km: 5$</li>
-                  <li>Booking Time: 12:56</li>
-                  <li>Capacity : 4</li>
-                  <li>Available : 2</li>
-                </ul>
-              </div>
-            </div>
-            <div class="card__side card__side--back card__side--back-2">
-              <div class="card__cta">
-                <div class="card__price-box">
-                  <p class="card__price-only">only</p>
-                  <p class="card__price-value">$299</p>
-                </div>
-                <a href="#" class="btn btn--white">Book now!</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-1-of-3">
-          <div class="card">
-            <div class="card__side card__side--front">
-              <div class="card__picture card__picture--3">&nbsp;</div>
-              <h4 class="card__heading">
-                <span class="card__heading-span card__heading-span--3">InDrive safest Drive</span>
-              </h4>
-              <div class="card__details">
-                <ul>
-                  <li>Origion: moraco</li>
-                  <li>Destination: Dimitri</li>
-                  <li>Per Km: 5$</li>
-                  <li>Booking Time: 12:56</li>
-                  <li>Capacity : 4</li>
-                  <li>Available : 2</li>
-                </ul>
-              </div>
-            </div>
-            <div class="card__side card__side--back card__side--back-3">
-              <div class="card__cta">
-                <div class="card__price-box">
-                  <p class="card__price-only">only</p>
-                  <p class="card__price-value">$299</p>
-                </div>
-                <a href="#" class="btn btn--white">Book now!</a>
-              </div>
-            </div>
-          </div>
+        @endforeach
+
+      </div>
+    <div class="row">
+        <div class="u-margin-top-big">
+           {{ $rides->links('pagination::bootstrap-4') }}
         </div>
       </div>
       <div class="u-center-text">
@@ -299,34 +268,6 @@
         <a href="#" class="btn-text">Read all stories &rarr;</a>
       </div>
     </section>
-    <!-- Form Design -->
-    <section class="section-book">
-      <div class="row">
-        <div class="book">
-          <div class="book__form">
-            <form class="form" method="post" action="login">
-              @csrf
-              <div class="u-margin-bottom-medium">
-                <h2 class="heading-secondary">Start booking now</h2>
-              </div>
-
-              <div class="form__group">
-                <input type="email" name="email" class="form__input" placeholder="Email address" id="email" required />
-                <label for="email" class="form__label">Email</label>
-              </div>
-              <div class="form__group">
-                <input type="password" class="form__input" name="password" placeholder="Password" id="name" required />
-                <label for="name" class="form__label">Password</label>
-              </div>
-
-              <div class="form__group">
-                <button class="btn btn--green">Next Step &rarr;</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
   <!-- Footer Designing -->
   <footer class="footer">
@@ -365,41 +306,6 @@
       </div>
     </div>
   </footer>
-  <!-- <div class="popup">
-      <div class="popup__content">
-
-      </div>
-    </div> -->
-  <!-- <section class="grid-test">
-      <div class="row">
-        <div class="col-1-of-2">col 1 of 2</div>
-        <div class="col-1-of-2">col 1 of 2</div>
-      </div>
-      <div class="row">
-        <div class="col-1-of-3">col 1 of 3</div>
-        <div class="col-2-of-3">col 2 of 3</div>
-        <div class="col-2-of-3">col 2 of 3</div>
-      </div>
-      <div class="row">
-        <div class="col-1-of-3">col 1 of 3</div>
-        <div class="col-2-of-3">col 2 of 3</div>
-      </div>
-      <div class="row">
-        <div class="col-1-of-4">col 1 of 4</div>
-        <div class="col-1-of-4">col 1 of 4</div>
-        <div class="col-1-of-4">col 1 of 4</div>
-        <div class="col-1-of-4">col 1 of 4</div>
-      </div>
-      <div class="row">
-        <div class="col-1-of-4">col 1 of 4</div>
-        <div class="col-1-of-4">col 1 of 4</div>
-        <div class="col-2-of-4">col 2 of 4</div>
-      </div>
-      <div class="row">
-        <div class="col-1-of-4">col 1 of 4</div>
-        <div class="col-3-of-4">col 3 of 4</div>
-      </div>
-    </section> -->
-</body>
+  </body>
 
 </html>

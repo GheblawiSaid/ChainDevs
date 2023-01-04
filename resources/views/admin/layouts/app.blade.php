@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend_assets/css/chatTwostyle.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div id="app">
