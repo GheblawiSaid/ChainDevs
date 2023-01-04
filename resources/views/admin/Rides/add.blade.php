@@ -12,10 +12,10 @@
       </div><!-- /.container-fluid -->
     </section>
 <section class="content">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row">
           <!-- left column -->
-          <div class="col-md-6">
+          <div class="col-sm-12">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -26,7 +26,9 @@
               <form action="/addRide" method="POST">
                  @csrf
                 <div class="card-body">
-                  <div class="form-group">
+                    <div class="row">
+                    <div class="col-md-6">
+                         <div class="form-group">
                     <label for="exampleInputEmail1">Title</label>
                     <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter title">
                   </div>
@@ -38,11 +40,7 @@
                     <label for="exampleInputEmail1">Price</label>
                     <input type="text" name="price" class="form-control" id="exampleInputEmail1" placeholder="Enter price">
                   </div>
-                    <div class="form-group">
-                    <label for="exampleInputEmail1">UserId</label>
-                    <input type="text" name="userIds" class="form-control" id="exampleInputEmail1" placeholder="Select user">
-                  </div>
-                  <div class="form-group">
+                   <div class="form-group">
                     <label for="exampleInputEmail1">Origion</label>
                     <input type="text" name="origion" class="form-control" id="exampleInputEmail1" placeholder="Enter origion">
                   </div>
@@ -50,7 +48,9 @@
                     <label for="exampleInputEmail1">Destination</label>
                     <input type="text" name="destination" class="form-control" id="exampleInputEmail1" placeholder="Enter destination">
                   </div>
-                   <div class="form-group">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                     <label for="exampleInputEmail1">Time of Ride</label>
                     <input type="text" name="timeOfRide" class="form-control" id="exampleInputEmail1" placeholder="Enter time of ride">
                   </div>
@@ -66,6 +66,16 @@
                     <label for="exampleInputEmail1">Status</label>
                     <input type="text" name="status" class="form-control" id="exampleInputEmail1" placeholder="Enter status">
                   </div>
+                    </div>
+                    </div>
+
+
+                    <!-- <div class="form-group">
+                    <label for="exampleInputEmail1">UserId</label>
+                    <input type="text" name="userIds" class="form-control" id="exampleInputEmail1" placeholder="Select user">
+                  </div> -->
+
+
                 </div>
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Add</button>
@@ -73,6 +83,7 @@
               </form>
             </div>
         </div>
+
         </div>
 </section>
 </div>

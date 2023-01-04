@@ -125,7 +125,9 @@ body {
 .u-margin-bottom-big {
     margin-bottom: 8rem;
 }
-
+.u-margin-top-big {
+    margin-top: 15rem;
+}
 .u-margin-bottom-medium {
     margin-bottom: 6rem;
 }
@@ -133,7 +135,9 @@ body {
 .u-margin-bottom-small {
     margin-bottom: 1.5rem;
 }
-
+.u-margin-top-small {
+    margin-top: 1.5rem;
+}
 .u-margin-bottom-big-big {
     margin-bottom: 12rem;
 }
@@ -289,7 +293,7 @@ body {
 }
 .card__side {
     background-color: orangered;
-    height: 57rem;
+    height: 70rem;
     transition: all 0.8s ease;
     position: absolute;
     top: 0;
@@ -399,6 +403,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
+
     text-align: center;
 }
 .card__price-box {
@@ -888,6 +893,9 @@ body {
     height: 50rem;
     border-radius: 3px;
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+}
+.book1 {
+    height: 66rem;
 }
 .book__form {
     width: 50%;
