@@ -86,7 +86,7 @@
                 <a href="{{ url('/redirect') }}" class="btn btn--white">Login with google &rarr;</a>
               </div>
                <div class="form__group">
-                <button class="btn btn--green">Login &rarr;</button>
+                <button class="btn btn--green">Login &rarr;<a href="/show"></button>
               </div>
             </form>
           </div>
