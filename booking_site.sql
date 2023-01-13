@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 03, 2023 at 08:46 AM
+-- Generation Time: Jan 08, 2023 at 04:03 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -35,50 +35,22 @@ CREATE TABLE `chats` (
   `status` int(11) NOT NULL,
   `ride_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `chat_type` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `chats`
 --
 
-INSERT INTO `chats` (`id`, `sender_id`, `receiver_id`, `message`, `status`, `ride_id`, `created_at`, `updated_at`) VALUES
-(58, 1, 5, 'nadeem', 0, 8, '2022-12-30 12:05:21', '2022-12-30 12:05:21'),
-(59, 5, 1, 'nadeem', 0, 8, '2022-12-30 12:06:30', '2022-12-30 12:06:30'),
-(60, 1, 5, 'nadeem', 0, 8, '2022-12-30 12:07:11', '2022-12-30 12:07:11'),
-(61, 1, 5, 'nadeem', 0, 8, '2022-12-30 12:07:41', '2022-12-30 12:07:41'),
-(62, 1, 5, 'nadeem', 0, 8, '2022-12-30 12:08:13', '2022-12-30 12:08:13'),
-(63, 1, 5, 'nadeem', 0, 8, '2022-12-30 12:10:01', '2022-12-30 12:10:01'),
-(64, 1, 5, 'nadeem', 0, 8, '2022-12-30 12:11:00', '2022-12-30 12:11:00'),
-(65, 1, 5, 'nadeem', 0, 8, '2022-12-30 12:11:51', '2022-12-30 12:11:51'),
-(66, 1, 5, 'nadeem', 0, 8, '2022-12-30 12:12:46', '2022-12-30 12:12:46'),
-(67, 1, 5, 'ff', 0, 8, '2022-12-31 04:59:43', '2022-12-31 04:59:43'),
-(68, 1, 5, 'ff', 0, 8, '2022-12-31 05:33:14', '2022-12-31 05:33:14'),
-(69, 1, 5, 'hi', 0, 8, '2023-01-02 08:33:45', '2023-01-02 08:33:45'),
-(70, 1, 5, 'hi i am admin 1 and also send notification', 0, 8, '2023-01-02 08:35:02', '2023-01-02 08:35:02'),
-(71, 1, 5, 'hiii', 0, 8, '2023-01-02 08:36:02', '2023-01-02 08:36:02'),
-(72, 1, 5, 'jjjj', 0, 8, '2023-01-02 08:36:52', '2023-01-02 08:36:52'),
-(73, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:35:29', '2023-01-02 09:35:29'),
-(74, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:35:43', '2023-01-02 09:35:43'),
-(75, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:36:49', '2023-01-02 09:36:49'),
-(76, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:37:52', '2023-01-02 09:37:52'),
-(77, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:38:13', '2023-01-02 09:38:13'),
-(78, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:38:39', '2023-01-02 09:38:39'),
-(79, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:39:21', '2023-01-02 09:39:21'),
-(80, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:39:54', '2023-01-02 09:39:54'),
-(81, 1, 5, 'jjjj', 0, 8, '2023-01-02 09:40:57', '2023-01-02 09:40:57'),
-(82, 1, 5, 'am sending notifi', 0, 8, '2023-01-02 09:41:43', '2023-01-02 09:41:43'),
-(83, 1, 5, 'am sending notifi', 0, 8, '2023-01-02 09:42:47', '2023-01-02 09:42:47'),
-(84, 1, 5, 'no notifi', 0, 8, '2023-01-02 09:44:14', '2023-01-02 09:44:14'),
-(85, 1, 5, 'jjkk', 0, 8, '2023-01-02 09:47:01', '2023-01-02 09:47:01'),
-(86, 1, 5, 'jjkk', 0, 8, '2023-01-02 09:48:34', '2023-01-02 09:48:34'),
-(87, 1, 5, 'aaa', 0, 8, '2023-01-02 09:49:09', '2023-01-02 09:49:09'),
-(88, 1, 5, 'aaa', 0, 8, '2023-01-02 09:49:42', '2023-01-02 09:49:42'),
-(89, 1, 5, 'aaa', 0, 8, '2023-01-02 14:24:48', '2023-01-02 14:24:48'),
-(90, 1, 5, 'aaa', 0, 8, '2023-01-02 14:31:29', '2023-01-02 14:31:29'),
-(91, 1, 5, 'hiii', 0, 8, '2023-01-02 14:31:49', '2023-01-02 14:31:49'),
-(92, 1, 15, 'hi', 0, 11, '2023-01-02 14:51:46', '2023-01-02 14:51:46'),
-(93, 1, 15, 'how are you', 0, 11, '2023-01-02 14:54:24', '2023-01-02 14:54:24');
+INSERT INTO `chats` (`id`, `sender_id`, `receiver_id`, `message`, `status`, `ride_id`, `created_at`, `updated_at`, `chat_type`) VALUES
+(1, 23, 22, 'hi i am admin2', 0, 15, '2023-01-04 11:59:08', '2023-01-04 11:59:08', 'group'),
+(2, 23, 22, 'i am make a deal and i am admin2', 0, 15, '2023-01-04 11:59:33', '2023-01-04 11:59:33', 'group'),
+(3, 24, 22, 'hi i am admin3 and i am sendig message', 0, 15, '2023-01-04 12:01:58', '2023-01-04 12:01:58', 'group'),
+(4, 23, 22, 'hi admin 1 i am admin 2 and i am sending message personally', 0, 15, '2023-01-04 12:02:55', '2023-01-04 12:02:55', 'p'),
+(5, 22, 23, 'sender is admin1', 0, 15, '2023-01-04 18:11:49', '2023-01-04 18:11:49', 'group'),
+(6, 24, 23, 'hi i am admin and i am sending it personnaly', 0, 16, '2023-01-04 13:38:17', '2023-01-04 13:38:17', 'p'),
+(7, 22, 23, 'hi i am admin', 0, 16, '2023-01-08 06:23:06', '2023-01-08 06:23:06', 'p');
 
 -- --------------------------------------------------------
 
@@ -133,61 +105,17 @@ CREATE TABLE `notifications` (
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `title` varchar(100) NOT NULL
+  `title` varchar(100) NOT NULL,
+  `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `notifications`
 --
 
-INSERT INTO `notifications` (`id`, `type`, `message`, `ride_id`, `user_id`, `created_at`, `updated_at`, `title`) VALUES
-(8, 'chat', 'ff', 7, 1, '2022-12-30 07:23:16', '2022-12-30 07:23:16', 'You receive a new message'),
-(9, 'chat', 'gg', 7, 1, '2022-12-30 07:23:21', '2022-12-30 07:23:21', 'You receive a new message'),
-(10, 'chat', 'qq', 7, 4, '2022-12-30 07:23:39', '2022-12-30 07:23:39', 'You receive a new message'),
-(11, 'chat', 'hh', 7, 4, '2022-12-30 07:40:29', '2022-12-30 07:40:29', 'You receive a new message'),
-(12, 'chat', 'hhh', 8, 5, '2022-12-30 07:41:45', '2022-12-30 07:41:45', 'You receive a new message'),
-(13, 'chat', 'kk', 8, 5, '2022-12-30 07:41:51', '2022-12-30 07:41:51', 'You receive a new message'),
-(14, 'chat', 'kk', 8, 5, '2022-12-30 07:43:30', '2022-12-30 07:43:30', 'You receive a new message'),
-(15, 'chat', 'ggg', 8, 5, '2022-12-30 08:29:28', '2022-12-30 08:29:28', 'You receive a new message'),
-(16, 'chat', 'eee', 8, 5, '2022-12-30 08:29:36', '2022-12-30 08:29:36', 'You receive a new message'),
-(17, 'chat', 'eeee', 8, 5, '2022-12-30 08:29:43', '2022-12-30 08:29:43', 'You receive a new message'),
-(18, 'chat', 'qqqq', 8, 5, '2022-12-30 08:29:48', '2022-12-30 08:29:48', 'You receive a new message'),
-(19, 'chat', 'qqqq', 8, 5, '2022-12-30 08:32:28', '2022-12-30 08:32:28', 'You receive a new message'),
-(20, 'chat', 'aaaa', 8, 5, '2022-12-30 10:05:52', '2022-12-30 10:05:52', 'You receive a new message'),
-(21, 'chat', 'hh', 7, 4, '2022-12-30 10:06:07', '2022-12-30 10:06:07', 'You receive a new message'),
-(22, 'chat', 'hh', 7, 4, '2022-12-30 10:12:17', '2022-12-30 10:12:17', 'You receive a new message'),
-(23, 'chat', 'hh', 7, 4, '2022-12-30 10:14:02', '2022-12-30 10:14:02', 'You receive a new message'),
-(24, 'chat', 'hh', 7, 4, '2022-12-30 10:15:27', '2022-12-30 10:15:27', 'You receive a new message'),
-(25, 'chat', 'nadeem', 7, 4, '2022-12-30 11:15:14', '2022-12-30 11:15:14', 'You receive a new message'),
-(26, 'chat', 'aaa', 7, 4, '2022-12-30 11:19:21', '2022-12-30 11:19:21', 'You receive a new message'),
-(27, 'chat', 'aaa', 7, 4, '2022-12-30 11:20:47', '2022-12-30 11:20:47', 'You receive a new message'),
-(28, 'chat', 'aaa', 7, 4, '2022-12-30 11:44:22', '2022-12-30 11:44:22', 'You receive a new message'),
-(29, 'chat', 'aaa', 7, 4, '2022-12-30 11:45:15', '2022-12-30 11:45:15', 'You receive a new message'),
-(32, 'chat', 'hi i am admin 1', 8, 5, '2022-12-30 11:49:31', '2022-12-30 11:49:31', 'You receive a new message'),
-(33, 'chat', 'hi i am admin 1', 8, 5, '2022-12-30 11:49:49', '2022-12-30 11:49:49', 'You receive a new message'),
-(34, 'chat', 'hi i am admin 1', 8, 5, '2022-12-30 11:50:28', '2022-12-30 11:50:28', 'You receive a new message'),
-(35, 'chat', 'hi', 8, 5, '2022-12-30 11:52:53', '2022-12-30 11:52:53', 'You receive a new message'),
-(36, 'chat', 'hi', 8, 5, '2022-12-30 11:53:10', '2022-12-30 11:53:10', 'You receive a new message'),
-(37, 'chat', 'bbbb', 8, 5, '2022-12-30 11:58:24', '2022-12-30 11:58:24', 'You receive a new message'),
-(38, 'chat', 'bbbb', 8, 5, '2022-12-30 11:58:33', '2022-12-30 11:58:33', 'You receive a new message'),
-(39, 'chat', 'vvv', 8, 5, '2022-12-30 11:59:17', '2022-12-30 11:59:17', 'You receive a new message'),
-(40, 'chat', 'nadeem', 8, 5, '2022-12-30 12:00:06', '2022-12-30 12:00:06', 'You receive a new message'),
-(41, 'chat', 'nadeem', 8, 5, '2022-12-30 12:05:21', '2022-12-30 12:05:21', 'You receive a new message'),
-(42, 'chat', 'nadeem', 8, 5, '2022-12-30 12:06:30', '2022-12-30 12:06:30', 'You receive a new message'),
-(43, 'chat', 'nadeem', 8, 5, '2022-12-30 12:07:11', '2022-12-30 12:07:11', 'You receive a new message'),
-(44, 'chat', 'nadeem', 8, 5, '2022-12-30 12:07:41', '2022-12-30 12:07:41', 'You receive a new message'),
-(45, 'chat', 'nadeem', 8, 5, '2022-12-30 12:08:13', '2022-12-30 12:08:13', 'You receive a new message'),
-(46, 'chat', 'nadeem', 8, 5, '2022-12-30 12:10:01', '2022-12-30 12:10:01', 'You receive a new message'),
-(47, 'chat', 'nadeem', 8, 5, '2022-12-30 12:11:00', '2022-12-30 12:11:00', 'You receive a new message'),
-(48, 'chat', 'nadeem', 8, 5, '2022-12-30 12:11:51', '2022-12-30 12:11:51', 'You receive a new message'),
-(49, 'chat', 'nadeem', 8, 5, '2022-12-30 12:12:46', '2022-12-30 12:12:46', 'You receive a new message'),
-(50, 'chat', 'ff', 8, 5, '2022-12-31 04:59:43', '2022-12-31 04:59:43', 'You receive a new message'),
-(51, 'chat', 'ff', 8, 5, '2022-12-31 05:33:14', '2022-12-31 05:33:14', 'You receive a new message'),
-(59, 'chat', 'aaa', 8, 5, '2023-01-02 14:24:48', '2023-01-02 14:24:48', 'You receive a new message'),
-(60, 'chat', 'aaa', 8, 5, '2023-01-02 14:31:29', '2023-01-02 14:31:29', 'You receive a new message'),
-(61, 'chat', 'hiii', 8, 5, '2023-01-02 14:31:49', '2023-01-02 14:31:49', 'You receive a new message'),
-(62, 'chat', 'hi', 11, 15, '2023-01-02 14:51:46', '2023-01-02 14:51:46', 'You receive a new message'),
-(63, 'chat', 'how are you', 11, 15, '2023-01-02 14:54:24', '2023-01-02 14:54:24', 'You receive a new message');
+INSERT INTO `notifications` (`id`, `type`, `message`, `ride_id`, `user_id`, `created_at`, `updated_at`, `title`, `status`) VALUES
+(1, 'chat', 'hi admin1', 15, 22, '2023-01-08 10:08:30', '2023-01-08 05:54:48', 'Message', 0),
+(2, 'chat', 'hi i am admin', 16, 23, '2023-01-08 06:23:06', '2023-01-08 06:23:06', 'You receive a new message', NULL);
 
 -- --------------------------------------------------------
 
@@ -230,7 +158,7 @@ CREATE TABLE `rides` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `price` varchar(255) NOT NULL,
+  `price` varchar(255) DEFAULT NULL,
   `userId` varchar(255) NOT NULL,
   `origion` varchar(255) NOT NULL,
   `destination` varchar(255) NOT NULL,
@@ -248,11 +176,12 @@ CREATE TABLE `rides` (
 --
 
 INSERT INTO `rides` (`id`, `title`, `description`, `price`, `userId`, `origion`, `destination`, `timeOfRide`, `totalCapacity`, `availableCapacity`, `status`, `created_at`, `updated_at`, `booked_ids`) VALUES
-(6, 'ride 1', 'greta ride', '1200', '1', 'moraco', 'germeny', '2:00', '6', '4', '0', '2022-12-30 05:20:04', '2022-12-30 05:20:04', '[]'),
-(7, 'ride 2', 'ride 2 from admin2 with user id 4', '300', '4', 'lahore', 'jehlem', '4:00', '5', '0', '0', NULL, '2022-12-30 08:00:42', '[\"1\",\"1\",\"1\",\"1\"]'),
-(8, 'ride 3', 'ride 3 from admin3 with user id 5', '300', '5', 'lahore', 'jehlem', '4:00', '5', '0', '0', NULL, '2022-12-30 12:15:17', '[\"1\",\"1\",\"1\",\"1\"]'),
-(9, 'ride 4', 'ride 4 from admin4 with user id 6', '600', '6', 'lahore', 'jehlem', '4:00', '5', '4', '0', NULL, NULL, ''),
-(11, 'ride by ghulam dastgeer', 'greta booking', '120', '15', 'lahore', 'gujrat', '6:00', '4', '3', '0', '2023-01-02 14:46:27', '2023-01-02 14:46:27', '[]');
+(15, 'Ride 1', 'Admin 1', '123', '22', 'germeny', 'moraco', '8:00', '8', '0', '0', '2023-01-04 11:55:28', '2023-01-04 11:55:28', '[]'),
+(16, 'ride 2', 'admin2 ride', '897', '23', 'moraco', 'jehlem', '5:00', '5', '0', '0', '2023-01-04 11:58:24', '2023-01-08 09:35:04', '[\"24\"]'),
+(17, 'ride 3', 'great ride', '897', '22', 'jehlem', 'islamabad', '6:00', '7', '1', '0', '2023-01-06 05:59:46', '2023-01-08 09:31:53', '[\"23\",\"24\"]'),
+(18, 'ride 4', 'great is great', '450', '22', 'gujrat', 'gujranwala', '8:00', '6', '4', '0', '2023-01-06 06:00:25', '2023-01-06 06:00:25', '[]'),
+(19, 'ride by admin 5', 'great ride is', '789', '26', 'jehlem', 'pindi', '7:00', '8', '4', '0', '2023-01-08 06:08:32', '2023-01-08 06:18:42', '[]'),
+(20, 'Ride by ghulam dastgeer', 'great ride', '769', '27', 'moraco', 'china', '4:00', '8', '2', '0', '2023-01-08 09:42:18', '2023-01-08 10:02:47', '[\"24\"]');
 
 -- --------------------------------------------------------
 
@@ -271,20 +200,21 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `google_id` varchar(500) DEFAULT NULL,
-  `notification_status` int(11) DEFAULT NULL
+  `notification_status` int(11) DEFAULT NULL,
+  `photo` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `google_id`, `notification_status`) VALUES
-(1, 1, 'admin', 'admin@gmail.com', NULL, '$2y$10$LfGwWDuXgG20Gz3C4EQkaeId7xY08TvqoWNziQYzhYpLmTel.kIJi', 'U3UTgHKFxDDsPyi6AbF8CuPoTixU4f5Lh37SohSFov7y4whjSLF3gA6qdptJ', NULL, '2023-01-02 09:49:31', NULL, 1),
-(4, 1, 'admin2', 'admin2@gmail.com', NULL, '1234', NULL, NULL, '2023-01-02 08:27:38', NULL, 1),
-(5, 1, 'admin3', 'admin3@gmail.com', NULL, '123123', NULL, NULL, '2023-01-02 08:27:43', NULL, 1),
-(6, 1, 'admin4', 'admin4@gmail.com', NULL, '123123', NULL, NULL, NULL, NULL, 0),
-(14, 2, 'Ghulam Dastgeer', 'gdastgeer349@gmail.com', NULL, '$2y$10$wsSWJBPXRRWgBXL.zvuQ4e9W/Y2WakTpWkB6uxIKYG.BW8VUNVoga', NULL, '2023-01-02 14:32:20', '2023-01-02 14:32:20', '107629543759405883358', 0),
-(15, 2, 'ghulam dastgeer', 'ghulam.dastgeer374@gmail.com', NULL, '$2y$10$eCOnYMY6KE1RAsGgm6wtpOsQQ9ff0NR7WytSYvShZL4VVAPQHlN3K', NULL, '2023-01-02 14:45:35', '2023-01-02 14:45:35', '106116847300443102955', 0);
+INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `google_id`, `notification_status`, `photo`) VALUES
+(22, 1, 'Admin1', 'admin1@gmail.com', NULL, '$2y$10$H5dCK8IemPekG3R6FTWtOufRJaXF/0swkRpIF1TcoqTDaODjXsGPS', 'w8XAagnohI65RHs7bUiZmw2A2GXKwaDJUyc2cytsocTOd67AZsNGDJoS5C6D', '2023-01-04 11:52:56', '2023-01-08 09:09:37', NULL, 1, '1672851382.jpg'),
+(23, 1, 'Admin2', 'Admin2@gmail.com', NULL, '$2y$10$lensjyWlJrwjv7im5FqErePgT/Xhx5p0rJYWFDOwX.NbNQ437dLUC', 'ZIsRg4xnCeTTWIKk3V5QwImuQ2vnxdMbu2Y5Iwj0HHCGEkEzv9fnCrzQ0rYE', '2023-01-04 11:57:05', '2023-01-08 09:00:24', NULL, 1, NULL),
+(24, 1, 'admin3', 'admin3@gmail.com', NULL, '$2y$10$qgqCvkAwkhQaOpxIf5OwLuuWr/llljKWxcPLkCO9fhgbOwlNFWSPy', 'uey2wtkrblcMVfnWpiOstPNq5lTIgDim4i7kY7HTaIH4xkfr3ggGE2nh2tlO', '2023-01-04 12:00:06', '2023-01-04 14:00:07', NULL, 1, NULL),
+(25, 1, 'Admin4', 'Admin4@gmail.com', NULL, '$2y$10$b6OZrCrHQBr3bwFcW0KQReN8abCYHkjGcLs7N50Ty2.v.pRraP/n2', 'xUGhoBeCF744KD2V904cWRV5eOyKw5fli5F5G0Ert9EloO6eM1mMVB6N1jKW', '2023-01-04 14:00:42', '2023-01-06 09:09:59', NULL, NULL, NULL),
+(26, 2, 'Admin5', 'admin5@gmail.com', NULL, '$2y$10$W4.mgXMYJRn6iYCpgpcIsOm.LgPWJTszfLZfd4vUJv6yAnPge1dXi', 'sROtRrTMeFRhhmBMN4i45r6pHDM9yyb1kJJG3cMKz1wqxR4GX1AP7HlydAwW', '2023-01-07 09:35:14', '2023-01-08 06:19:04', NULL, NULL, NULL),
+(27, 1, 'ghulam dastgeer', 'ghulam.dastgeer374@gmail.com', NULL, '$2y$10$g5h7dimt0bPlfIObkkVo6OYAnpNhIYVFqmTKi0300s05lxTTuym0y', NULL, '2023-01-08 09:39:37', '2023-01-08 09:39:37', '106116847300443102955', 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -354,7 +284,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -372,7 +302,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -384,13 +314,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `rides`
 --
 ALTER TABLE `rides`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
