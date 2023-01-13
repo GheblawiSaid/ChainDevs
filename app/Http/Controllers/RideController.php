@@ -9,17 +9,13 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Ride;
 use App\Models\User;
 use App\Models\Notification;
+use Mail;
 use Socialite;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class RideController extends Controller
 {
-    //
-    //
-    function dashboard()
-    {
-        echo "admin dashboard".Auth::user()->id;
-    }
+
 
     //admin login
     function login()
@@ -40,28 +36,20 @@ class RideController extends Controller
         $password = $request->password;
 
         if (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 1) {
-            //firstly we get all notifications of logged in users
-            $loggedInUserId=Auth::user()->id;
-            $notifications=Notification::where('user_id',$loggedInUserId)->get();
-            $notification_count=$notifications->count();
-            if($notifications->isNotEmpty() && $notification_count>0)
-            {
-              //  return $notification_count;
-              //  return $notifications;
-               // view('/admin/layouts/header',["notifications"=>$notifications,"notification_count"=>$notification_count]);
-                return Redirect::to('/dashboard');
-            }
-            else{
-                // return $notification_count;
-                return Redirect::to('/dashboard');
-            }
-
+            return view('welcome');
 
           //  return Redirect::to('/dashboard',["notifications"=>$notifications]);
-        } elseif (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 2) {
+        }
+        elseif (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 2) {
 
-            return Redirect::to('employee_dashboard');
-        } else {
+             return redirect('/dashboard');
+            // return view('admin/layouts/app');
+        }
+         elseif (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 3) {
+                 return redirect('/dashboard');
+            //return view('admin/layouts/app');
+        }
+        else {
             return redirect()->back()->with('alert', 'Incorrect Details');
 
         }
@@ -113,6 +101,27 @@ class RideController extends Controller
 
         }
     }
+      public function updateNotificationStatusSingleUser($id,Request $req)
+    {
+        $obj = User::find($id);
+        if ($obj) {
+            $obj->notification_status = $req->notification_status;
+            $obj->save();
+            return redirect('/showProfile');
+
+        }
+    }
+    //This method helps to change notifications when user clicks on single notification status in notification table
+    public function updateNotificationStatusOnAdminPanel($id)
+    {
+         $obj = Notification::find($id);
+         if($obj)
+         {
+            $obj->status=1;
+            $obj->save();
+             return redirect('/dashboard');
+         }
+    }
     public function logout()
     {
         Auth::guard('user')->logout();
@@ -130,14 +139,40 @@ class RideController extends Controller
     }
     function showAllRides()
     {
-        // Yahan pr pehly ham sara data fetch krain gy orr phir usko view mai pass krain gy
+        
         $data = Ride::All();
         return view("admin/Rides/show", ["rides" => $data]);
+    }
+     function showAllRidesOfLoggedInUser()
+    {
+        
+        $loggedInId=Auth::user()->id;
+        $data = Ride::where('userId',$loggedInId)->get();
+        return view("admin/Rides/showLoggedIn", ["rides" => $data]);
+    }
+       function showAllRidesAndSearch()
+    {
+        
+        $data = Ride::paginate(3);
+        return view("rides", ["rides" => $data]);
+    }
+    public function searchRide(Request $req)
+    {
+       $value=$req->searchRide;
+       $data = Ride::where('title', 'LIKE', "%$value%")
+                  ->orWhere('price', 'LIKE', "%$value%")
+                  ->paginate(3);
+        return view("rides", ["rides" => $data]);
     }
     function editRideView($id)
     {
         $data = Ride::find($id);
         return view("admin/Rides/edit", ["data" => $data]);
+    }
+    function editRideViewOfLoggedIn($id)
+    {
+        $data = Ride::find($id);
+        return view("admin/Rides/editLoggedIn", ["data" => $data]);
     }
     function indexPage()
     {
@@ -173,7 +208,15 @@ class RideController extends Controller
         $obj = new Ride;
         $obj->title = $req->title;
         $obj->description = $req->description;
-        $obj->price = $req->price;
+        $price=$req->price;
+        if($price=="")
+        {
+            $price="tpa";
+        }
+        else{
+            $price=$req->price;
+        }
+        $obj->price = $price;
         $obj->origion = $req->origion;
         $obj->userId = Auth::user()->id;
         $obj->destination = $req->destination;
@@ -204,24 +247,75 @@ class RideController extends Controller
         }
 
     }
+      function updateLoggedInRide(Request $req)
+    {
+        $obj = Ride::find($req->id);
+        if ($obj) {
+            $obj->title = $req->title;
+            $obj->description = $req->description;
+            $obj->price = $req->price;
+            $obj->origion = $req->origion;
+            $obj->userId = Auth::user()->id;;
+            $obj->destination = $req->destination;
+            $obj->timeOfRide = $req->timeOfRide;
+            $obj->totalCapacity = $req->totalCapacity;
+            $obj->availableCapacity = $req->availableCapacity;
+            $obj->status = $req->status;
+            $obj->save();
+            return redirect('/showAllRidesOfLoggedInUser');
+        }
+
+    }
     function bookNewRide($ride_id,$sender_id)
     {
         $data=Ride::find($ride_id);
+       // return $data[0]->user_id;
         $availableCapacity=$data->availableCapacity;
         if($availableCapacity>0)
         {
-        $currentCapacity=$availableCapacity-1;
-        $bookedIds=json_decode($data->booked_ids);
-        // if( in_array( $sender_id ,$bookedIds ) )
-        // {
-        //         return "has sender_id";
-        // }
-        $bookedIds[]=$sender_id;
-        $data->availableCapacity=$currentCapacity;
-        $data->booked_ids=json_encode($bookedIds);
-        $data->save();
-        $rides = Ride::paginate(3);
-        return view("index", ["rides" => $rides]);
+                $currentCapacity=$availableCapacity-1;
+                $bookedIds=json_decode($data->booked_ids);
+                if( in_array( $sender_id ,$bookedIds ) )
+                {
+                        return redirect('/');
+                }
+                else
+                {
+                        $bookedIds[]=$sender_id;
+                        $data->availableCapacity=$currentCapacity;
+                        $data->booked_ids=json_encode($bookedIds);
+                        $data->save();
+                        $rides = Ride::paginate(3);
+
+                        $userIdOfRidePoster=$data->userId;
+                        $user=User::where([['id',$userIdOfRidePoster],['notification_status',1]])->get()->first();
+                       // return $user;
+                        if($user)
+                        {
+                            // $notify_status=$user->notification_status;
+                            // if($notify_status==1)
+                            // {
+                                $sender_Id=Auth::user()->id;
+                                    //  $reciever_user=User::where('id',$userId)->first();
+                                        $sender_user=User::where('id',$sender_Id)->first();
+
+                                    $data = [
+                                        'sender_first_name' => $sender_user->first_name,
+                                        'sender_last_name' => $sender_user->last_name,
+
+                                    ];
+                                    $emaildata = array('to' => $user->email, 'to_name' =>$user->first_name);
+                                    Mail::send('email_template', $data, function($message) use ($emaildata)
+                                    {
+                                        $message->to($emaildata['to'], $emaildata['to_name'])
+                                                ->from('nadeemaslam0129@gmail.com', 'Ride Web')
+                                                ->subject('Ride Reservation Notification');
+                                    });
+                            // }
+                        }
+                        return view("index", ["rides" => $rides]);
+                }
+
         }
         else
         {
