@@ -43,7 +43,7 @@
 
 
                             <td class="project-actions text-right">
-                                <a class="btn btn-info btn-sm" href="{{"/editRide/".$ride['id'] }}">
+                                <a class="btn btn-info btn-sm" href="{{"/editLoggedInUserRides/".$ride['id'] }}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Edit

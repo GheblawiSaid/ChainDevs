@@ -57,11 +57,11 @@
                             </td>
  @endif
                             <td class="project-actions text-right">
-                                <!-- <a class="btn btn-info btn-sm" href="{{"/editUser/".$u['id'] }}">
+                                <a class="btn btn-info btn-sm" href="{{"/editUser/".$u['id'] }}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Edit
-                                </a> -->
+                                </a>
                                 <a class="btn btn-danger btn-sm" href="{{"/delUser/".$u['id'] }}">
                                     <i class="fas fa-trash">
                                     </i>

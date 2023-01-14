@@ -1,5 +1,12 @@
  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+ <?php
+ use App\Models\Notification;
+            $loggedInUserId=Auth::user()->id;
+            $notifications=Notification::where([['user_id',$loggedInUserId],['status',0]])->get();
+            $notification_count=$notifications->count();
+
+ ?>
+ <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -11,30 +18,38 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
 
-
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="far fa-bell"></i>
-
-          <span class="badge badge-danger navbar-badge">11</span>
+          <span class="badge badge-danger navbar-badge">{{ $notification_count }}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
+          @foreach($notifications as $noti)
+
+          <a type="submit" class="dropdown-item">
+
+            <form method="post" action="{{ "/changeNotificationStatus/".$noti->id }}" >
+            @csrf
+            <!-- Notification Start -->
+            <button type="submit" style="border:none;background-color:transparent;width:100%">
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <!-- <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle"> -->
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                  {{ $noti->title}}
+                  <!-- <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span> -->
                 </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                <p class="text-sm">{{ $noti->message}}</p>
+                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ $noti->type}}</p>
               </div>
             </div>
-            <!-- Message End -->
+            </button>
+            <!-- Notification End -->
+            <!-- <button type="submit">See</button> -->
+            </form>
           </a>
+          @endforeach
           <div class="dropdown-divider"></div>
 
 
@@ -72,3 +87,4 @@
     </ul>
   </nav>
   <!-- /.navbar -->
+

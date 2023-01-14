@@ -29,16 +29,10 @@
           <a href="/" class="navigation__link"><span>01</span>About Booking</a>
         </li>
         <li class="navigation__item">
-          <a href="/register" class="navigation__link"><span>02</span>Register</a>
+          <a href="/login" class="navigation__link"><span>02</span>Login</a>
         </li>
         <li class="navigation__item">
-          <a href="/login" class="navigation__link"><span>03</span>Login</a>
-        </li>
-        <li class="navigation__item">
-          <a href="#" class="navigation__link"><span>04</span>Rides</a>
-        </li>
-        <li class="navigation__item">
-          <a href="#" class="navigation__link"><span>05</span>Book now</a>
+          <a href="/showAllRidesAndSearch" class="navigation__link"><span>03</span>Rides</a>
         </li>
       </ul>
     </nav>
@@ -65,8 +59,8 @@
                 <label for="email" class="form__label">Email</label>
               </div>
                 <div class="form__group">
-                <input type="text" class="form__input" name="password" placeholder="Password" id="name" required />
-                <label for="name" class="form__label">Password</label>
+                <input type="password" class="form__input" name="password" placeholder="Password" id="name" required />
+                <label for="password" class="form__label">Password</label>
               </div>
               <div class="form__group">
                 <div class="form__radio-group">
@@ -85,11 +79,13 @@
                     <!-- <input type="hidden"> -->
                     User
                   </label>
-
                 </div>
               </div>
               <div class="form__group">
                 <button class="btn btn--green">Register &rarr;</button>
+              </div>
+              <div class="form__group">
+                <a href="{{ url('/redirect') }}" class="btn btn--white">Login with google &rarr;</a>
               </div>
             </form>
           </div>

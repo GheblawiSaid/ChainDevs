@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
   rel="stylesheet"
   />
-
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ asset('frontend_assets/css/icon-font.css') }}" />
   <link rel="stylesheet" href="{{ asset('frontend_assets/css/style.css') }}" />
 
@@ -33,14 +33,9 @@
           <a href="/register" class="navigation__link"><span>02</span>Register</a>
         </li>
         <li class="navigation__item">
-          <a href="#" class="navigation__link"><span>03</span>Popular Deals</a>
+          <a href="/showAllRidesAndSearch" class="navigation__link"><span>03</span>Rides</a>
         </li>
-        <li class="navigation__item">
-          <a href="#" class="navigation__link"><span>04</span>Rides</a>
-        </li>
-        <li class="navigation__item">
-          <a href="#" class="navigation__link"><span>05</span>Book now</a>
-        </li>
+
       </ul>
     </nav>
   </div>
@@ -86,11 +81,9 @@
           </div>
           <div class="col-1-of-2">
             <div class="composition">
-              <img src="frontend_assets/img/nat-1-large.jpg" alt="photo1"
-                class="composition__photo composition__photo--p1" />
-              <img src="frontend_assets/img/nat-2-large.jpg" alt="photo 2"
-                class="composition__photo composition__photo--p2" />
-              <img src="frontend_assets/img/nat-3-large.jpg" alt="photo 3"
+              <img src="{{ asset('frontend_assets/img/nat-1-large.jpg') }}" alt="photo1" class="composition__photo composition__photo--p1" />
+              <img src="{{ asset('frontend_assets/img/nat-2-large.jpg') }}" alt="photo 2" class="composition__photo composition__photo--p2" />
+              <img src="{{ asset('frontend_assets/img/nat-3-large.jpg') }}" alt="photo 3"
                 class="composition__photo composition__photo--p3" />
             </div>
           </div>
@@ -174,52 +167,65 @@
                 </ul>
               </div>
             </div>
-            <div class="card__side card__side--back card__side--back-1">
-              <div class="card__cta">
-                @if (auth()->check())
-                <div class="card__price-box">
+            @if(auth()->check())
+                @if($ride['availableCapacity']>0)
+                    <div class="card__side card__side--back card__side--back-1">
+                    <div class="card__cta">
+                        <div class="card__price-box">
+                        <p class="card__price-only">only</p>
+                        <p class="card__price-value">${{ $ride['price'] }}</p>
+                        </div>
 
-                  <p class="card__price-only">only</p>
-                  <p class="card__price-value">${{ $ride['price'] }}</p>
-                </div>
-                    @if($ride['availableCapacity']>0)
-                    <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Chat now!</a>
-                    <form action="/bookRideWithUser/{{ $ride['id'] }}/{{ Auth::user()->id }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn--white u-margin-top-small">Book now!</button>
-                        <!-- <h 3class="btn btn--white u-margin-top-small">Book now!</h> -->
-                    </form>
-                    @else
-                    <div class="card__price-box">
-                    <p class="card__price-only">This ride is full of capacity</p>
+                            <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Chat now!</a>
+                            <a href="/groupChatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Group Chat!</a>
+                                <form action="/bookRideWithUser/{{ $ride['id'] }}/{{ Auth::user()->id }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn--white u-margin-top-small">Book now!</button>
+                                </form>
+
                     </div>
-                    @endif
+                    </div>
                 @else
+                <div class="card__side card__side--back card__side--back-2">
+                <div class="card__cta">
+                    <div class="card__price-box">
+                    <p class="card__price-only">only</p>
+                    <p class="card__price-value">${{ $ride['price'] }}</p>
+                    </div>
+                        <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Chat now!</a>
+                        <a href="/groupChatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Group Chat!</a>
+                        <div class="card__price-box u-margin-top-small">
+                        <p class="card__price-only ">This ride is full of capacity</p>
+                        </div>
+                </div>
+                </div>
+                @endif
+            @else
+             <div class="card__side card__side--back card__side--back-1">
+              <div class="card__cta">
                 <div class="card__price-box">
                  <p class="card__price-only">Please login first</p>
                 </div>
-                 @endif
             </div>
             </div>
+           @endif
           </div>
         </div>
         @endforeach
 
       </div>
-    <div class="row">
-        <div class="u-margin-top-big">
-           {{ $rides->links('pagination::bootstrap-4') }}
-        </div>
+      <div class="row">
+      <div class="u-center-text u-margin-top-big">
+        <a href="/showAllRidesAndSearch" class="btn btn--green">Discover all Deals</a>
       </div>
-      <div class="u-center-text">
-        <a href="#" class="btn btn--green">Discover all Deals</a>
       </div>
+
     </section>
     <section class="section-stories">
       <div class="bg-video">
         <video class="bg-video__content" autoplay muted loop>
-          <source src="frontend_assets/img/video.mp4" type="video/mp4" />
-          <source src="frontend_assets/img/video.webm" type="video/webm" />
+          <source src="{{ asset('frontend_assets/img/video.mp4') }}" type="video/mp4" />
+          <source src="{{ asset('frontend_assets/img/video.webm') }}" type="video/webm" />
           Your browser is not supported
         </video>
       </div>
@@ -229,7 +235,7 @@
       <div class="row">
         <div class="story">
           <figure class="story__shape">
-            <img src="frontend_assets/img/nat-8.jpg" alt="Person on a tour" class="story__image" />
+            <img src="{{ asset('frontend_assets/img/nat-8.jpg') }}" alt="Person on a tour" class="story__image" />
             <figcaption class="story__caption">John</figcaption>
           </figure>
           <div class="story__text">
@@ -247,7 +253,7 @@
         </div>
         <div class="story">
           <figure class="story__shape">
-            <img src="frontend_assets/img/nat-9.jpg" alt="Person on a tour" class="story__image" />
+            <img src="{{ asset('frontend_assets/img/nat-9.jpg') }}" alt="Person on a tour" class="story__image" />
             <figcaption class="story__caption">Jopsa</figcaption>
           </figure>
           <div class="story__text">
@@ -272,7 +278,7 @@
   <!-- Footer Designing -->
   <footer class="footer">
     <div class="footer__logo-box">
-      <img src="frontend_assets/img/logo-green-2x.png" alt="Full logo" class="footer__logo" />
+      <img src="{{ asset('frontend_assets/img/logo-green-2x.png') }}" alt="Full logo" class="footer__logo" />
     </div>
     <div class="row">
       <div class="col-1-of-2">
