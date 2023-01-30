@@ -123,7 +123,7 @@ body {
 }
 
 .u-margin-bottom-big {
-    margin-bottom: 8rem;
+    margin-bottom: 10rem;
 }
 .u-margin-top-big {
     margin-top: 15rem;
@@ -601,7 +601,7 @@ body {
     left: 4rem;
 }
 .header__logo {
-    height: 3.5rem;
+    height: 15.5rem;
 }
 .header__text-box {
     position: absolute;
@@ -900,4 +900,34 @@ body {
 .book__form {
     width: 50%;
     padding: 6rem;
+}
+.book__search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -200px;
+}
+.book__search .form__group input {
+    margin-left: 40px;
+    background-color: rgba(126, 213, 111, 0.8);
+    /* width: 70%; */
+}
+.book__search .form__group input::-webkit-input-placeholder {
+    color: rgb(249, 247, 247);
+}
+.book__search .form__group button {
+    margin-top: 10px;
+    margin-right: 140px;
+}
+.form__group:not(:last-child) {
+    width: inherit;
+}
+.custom__alert {
+    background-color: rgba(126, 213, 111, 0.8);
+    padding: 15px;
+    color: white;
+    margin-bottom: 20px;
+}
+.custom__alert--red {
+    background-color: rgba(246, 80, 20, 0.8);
 }

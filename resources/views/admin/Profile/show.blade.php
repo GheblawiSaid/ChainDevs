@@ -68,10 +68,10 @@
                     <form class="form-horizontal" action="/editProfile" method="POST" enctype="multipart/form-data">
                         @csrf
                       <div class="form-group">
-                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
+                        <label for="inputName">Name</label>
+
                           <input type="text" name="name" class="form-control" id="inputName" placeholder="Name" value="{{ $user[0]->name }}">
-                        </div>
+
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
@@ -82,10 +82,10 @@
                         <input type="password" name="password" class="form-control" id="exampleInputEmail1"  >
                       </div>
                       <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Image</label>
-                        <div class="col-sm-10">
+                        <label for="inputEmail" >Image</label>
+
                           <input type="file" name="image" class="form-control" placeholder="image" value="{{ $user[0]->photo }}">
-                        </div>
+
                       </div>
                       <div class="form-group">
                         <div>

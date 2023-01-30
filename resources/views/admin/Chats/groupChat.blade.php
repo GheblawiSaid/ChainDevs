@@ -63,13 +63,15 @@
 
                                 <form class="input-group" action="/startGroupChat" method="POST">
                                 @csrf
+                                @if($userId !=null && $rideId!=null)
 								<input name="message"class="form-control type_msg" placeholder="Type your message..."></input>
 								<div class="input-group-append">
-								@if($userId !=null && $rideId!=null)
+
                                 <input type="hidden" name="receiver_id" value={{ $userId }}>
                                 <input type="hidden" name="ride_id" value={{ $rideId }}>
-                                @endif
+
                                 <button class="input-group-text send_btn" type="submit">send</button>
+                                 @endif
                                 <!-- <span class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></span> -->
 								</div>
 							</div>

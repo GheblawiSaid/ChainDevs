@@ -186,7 +186,7 @@ class chatController extends Controller
             Mail::send('email_template', $data, function($message) use ($emaildata)
              {
                 $message->to($emaildata['to'], $emaildata['to_name'])
-                        ->from('nadeemaslam0129@gmail.com', 'Ride Web')
+                        ->from('SplitRideMY@gmail.com', 'Split Rider')
                         ->subject('New Message Notification');
             });
             }
@@ -257,7 +257,7 @@ class chatController extends Controller
             Mail::send('email_template', $data, function($message) use ($emaildata)
              {
                 $message->to($emaildata['to'], $emaildata['to_name'])
-                        ->from('nadeemaslam0129@gmail.com', 'Ride Web')
+                        ->from('SplitRideMY@gmail.com', 'Split Rider')
                         ->subject('New Message Notification');
             });
             }
@@ -342,5 +342,12 @@ class chatController extends Controller
             return redirect('/allUsers');
 
           }
+    }
+
+
+    //Map
+    function showMap()
+    {
+        return view('map');
     }
 }

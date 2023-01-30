@@ -8,6 +8,7 @@
   rel="stylesheet"
   />
 
+
   <link rel="stylesheet" href="{{ asset('frontend_assets/css/icon-font.css') }}" />
   <link rel="stylesheet" href="{{ asset('frontend_assets/css/style.css') }}" />
 
@@ -38,6 +39,7 @@
     </nav>
   </div>
 
+
   <main>
 
     <!-- Form Design -->
@@ -50,7 +52,15 @@
               <div class="u-margin-bottom-medium">
                 <h2 class="heading-secondary">Login</h2>
               </div>
-
+              @if(Session::has('user_added'))
+                <div class="custom__alert custom__alert--red" role="alert">
+                    {{ Session::get('user_added') }}
+                </div>
+              @elseif(Session::has('user_verified'))
+                <div class="custom__alert" role="alert">
+                    {{ Session::get('user_verified') }}
+                </div>
+              @endif
               <div class="form__group">
                 <input type="email" name="email" class="form__input" placeholder="Email address" id="email" required />
                 <label for="email" class="form__label">Email</label>
@@ -60,7 +70,13 @@
                 <label for="name" class="form__label">Password</label>
               </div>
                <div class="form__group">
+                <a href="{{ route('forget.password.get') }}">Reset Password</a>
+               </div>
+               <div class="form__group">
                 <button class="btn btn--green">Login &rarr;</button>
+              </div>
+               <div class="form__group">
+                <a href="{{ url('/redirect') }}" class="btn btn--white">Login with google &rarr;</a>
               </div>
                </div>
             </form>

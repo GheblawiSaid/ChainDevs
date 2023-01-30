@@ -88,10 +88,14 @@
                     <div class="card__cta">
                         <div class="card__price-box">
                         <p class="card__price-only">only</p>
+                        @if($ride['price'] != "TPA")
                         <p class="card__price-value">${{ $ride['price'] }}</p>
+                        @else
+                        <p class="card__price-value">{{ $ride['price'] }}</p>
+                        @endif
                         </div>
-
-                            <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Chat now!</a>
+                            <a href="/showMap" class="btn btn--white u-margin-bottom-small">Google Map</a>
+                            <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white u-margin-bottom-small">Private Chat</a>
                             <a href="/groupChatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Group Chat!</a>
                                 <form action="/bookRideWithUser/{{ $ride['id'] }}/{{ Auth::user()->id }}" method="POST">
                                     @csrf
@@ -105,9 +109,14 @@
                 <div class="card__cta">
                     <div class="card__price-box">
                     <p class="card__price-only">only</p>
-                    <p class="card__price-value">${{ $ride['price'] }}</p>
+                     @if($ride['price'] != "TPA")
+                        <p class="card__price-value">${{ $ride['price'] }}</p>
+                        @else
+                        <p class="card__price-value">{{ $ride['price'] }}</p>
+                        @endif
                     </div>
-                        <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Chat now!</a>
+                     <a href="/showMap" class="btn btn--white u-margin-bottom-small">Google Map</a>
+                        <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white u-margin-bottom-small">Private Chat</a>
                         <a href="/groupChatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Group Chat!</a>
                         <div class="card__price-box u-margin-top-small">
                         <p class="card__price-only ">This ride is full of capacity</p>
@@ -131,7 +140,7 @@
       </div>
     <div class="row">
         <div class="u-margin-top-big">
-           {{ $rides->links('pagination::bootstrap-4') }}
+           {{ $rides->links() }}
         </div>
       </div>
       <div class="u-center-text">

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,8 +11,11 @@ use App\Models\User;
 use App\Models\Notification;
 use Mail;
 use Socialite;
+use DateTime;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
-
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 class RideController extends Controller
 {
 
@@ -21,10 +24,10 @@ class RideController extends Controller
     function login()
     {
         $data['active'] = '';
-        if (Auth::guard('user')->check() && auth('user')->user()->role_id == 1) {
+        if (Auth::guard('user')->check() && auth('user')->user()->role_id == 1 && auth('user')->user()->verified == 1) {
             return Redirect::to('dashboard');
 
-        } elseif (Auth::guard('user')->check() && auth('admin')->user()->role_id == 2) {
+        } elseif (Auth::guard('user')->check() && auth('admin')->user()->role_id == 2 && auth('user')->user()->verified == 1) {
             return Redirect::to('employee_dashboard');
         }
         return view('login');
@@ -35,17 +38,17 @@ class RideController extends Controller
         $email = $request->email;
         $password = $request->password;
 
-        if (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 1) {
+        if (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 1 && auth('user')->user()->verified == 1) {
             return view('welcome');
 
           //  return Redirect::to('/dashboard',["notifications"=>$notifications]);
         }
-        elseif (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 2) {
+        elseif (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 2 && auth('user')->user()->verified == 1) {
 
              return redirect('/dashboard');
             // return view('admin/layouts/app');
         }
-         elseif (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 3) {
+         elseif (Auth::guard('user')->attempt(['email' => $email, 'password' => $password], true) && auth('user')->user()->role_id == 3 && auth('user')->user()->verified == 1) {
                  return redirect('/dashboard');
             //return view('admin/layouts/app');
         }
@@ -78,9 +81,22 @@ class RideController extends Controller
         $u->role_id=2;
         $u->notification_status=0;
         $u->password = bcrypt($user->password);
+        $u->verified=0;
         $u->save();
-        Auth::login($u);
-        return redirect::to('/dashboard');
+        //Email code
+        $data = [
+                'user_id'=>$u->id,
+                'sender_first_name' => 'BookingSite',
+                'sender_last_name' => 'Booking',
+        ];
+        $emaildata = array('to' => $user->email, 'to_name' =>$user->username);
+        Mail::send('email_verified', $data, function($message) use ($emaildata)
+        {
+                $message->to($emaildata['to'], $emaildata['to_name'])
+                        ->from('SplitRideMY@gmail.com', 'Split Rider')
+                        ->subject('Account verification');
+        });
+        return redirect::to('/login')->with('user_added','Please check your Email and verify');
         }
 
     }
@@ -139,22 +155,38 @@ class RideController extends Controller
     }
     function showAllRides()
     {
-        
+        // Yahan pr pehly ham sara data fetch krain gy orr phir usko view mai pass krain gy
         $data = Ride::All();
+
         return view("admin/Rides/show", ["rides" => $data]);
     }
      function showAllRidesOfLoggedInUser()
     {
-        
+        // Yahan pr pehly ham sara data fetch krain gy orr phir usko view mai pass krain gy
         $loggedInId=Auth::user()->id;
         $data = Ride::where('userId',$loggedInId)->get();
         return view("admin/Rides/showLoggedIn", ["rides" => $data]);
     }
-       function showAllRidesAndSearch()
+       function showAllRidesAndSearch(Request $req)
     {
-        
-        $data = Ride::paginate(3);
-        return view("rides", ["rides" => $data]);
+        date_default_timezone_set('Asia/Singapore');
+        // Yahan pr pehly ham sara data fetch krain gy orr phir usko view mai pass krain gy
+        $datas = Ride::all();
+       // return $datas;
+        $current_date_time = new DateTime();
+        $ourRides=array();
+        foreach($datas as $data)
+        {
+          $diff = $current_date_time->diff(new DateTime($data->created_at));
+        //  echo "Day ".$diff->d." Hour ".$diff->h."\n";
+          if($diff->d<1 && $diff->h <= $data->timeOfRide)
+          {
+           // echo $data;
+            $ourRides[]=$data->id;
+          }
+        }
+        $rides=Ride::whereIn('id',$ourRides)->paginate(3);
+        return view("admin/Rides/rides", compact('rides'));
     }
     public function searchRide(Request $req)
     {
@@ -176,8 +208,23 @@ class RideController extends Controller
     }
     function indexPage()
     {
-        $data = Ride::paginate(3);
-        return view("index", ["rides" => $data]);
+        date_default_timezone_set('Asia/Singapore');
+        $datas = Ride::all();
+        $current_date_time = new DateTime();
+        $ourRidesOnFront=array();
+        foreach($datas as $data)
+        {
+          $diff = $current_date_time->diff(new DateTime($data->created_at));
+        //  echo "Day ".$diff->d."\n";
+        //  echo "Hour ".$diff->h."\n";
+          if($diff->d<1 && $diff->h<= $data->timeOfRide)
+          {
+
+            $ourRidesOnFront[]=$data->id;
+          }
+        }
+        $rides=Ride::whereIn('id',$ourRidesOnFront)->paginate(3);
+        return view("index", ["ourFrontRides" => $rides]);
 
     }
     function loginPage()
@@ -192,15 +239,39 @@ class RideController extends Controller
     }
     function postUserRegistration(Request $request)
     {
-        //return $request->role_id;
+
         $user=new User;
         $user->name =$request->username;
         $user->email=$request->email;
         $user->role_id=$request->role_id;
         $user->password = bcrypt($request->password);
+        $user->verified=0;
         $user->save();
-        return redirect::to('/login');
 
+        //Email code
+        $data = [
+                'user_id'=>$user->id,
+                'sender_first_name' => 'BookingSite',
+                'sender_last_name' => 'Booking',
+        ];
+        $emaildata = array('to' => $request->email, 'to_name' =>$request->username);
+        Mail::send('email_verified', $data, function($message) use ($emaildata)
+        {
+                $message->to($emaildata['to'], $emaildata['to_name'])
+                        ->from('SplitRideMY@gmail.com', 'Split Rider')
+                        ->subject('Account verification');
+        });
+        return redirect::to('/login')->with('user_added','Please check your Email and verify');
+    }
+    function updateUserVerifiedStatus($id)
+    {
+        $obj = User::find($id);
+        if($obj)
+        {
+            $obj->verified=1;
+            $obj->save();
+            return redirect('/login')->with('user_verified','You are verified and now login');;
+        }
     }
     function addNewRide(Request $req)
     {
@@ -211,7 +282,7 @@ class RideController extends Controller
         $price=$req->price;
         if($price=="")
         {
-            $price="tpa";
+            $price="TBA";
         }
         else{
             $price=$req->price;
@@ -308,7 +379,7 @@ class RideController extends Controller
                                     Mail::send('email_template', $data, function($message) use ($emaildata)
                                     {
                                         $message->to($emaildata['to'], $emaildata['to_name'])
-                                                ->from('nadeemaslam0129@gmail.com', 'Ride Web')
+                                                ->from('SplitRideMY@gmail.com', 'Split Rider')
                                                 ->subject('Ride Reservation Notification');
                                     });
                             // }
@@ -335,4 +406,5 @@ class RideController extends Controller
         $data->delete();
         return redirect('/allUsers');
     }
+
 }

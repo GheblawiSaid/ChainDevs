@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="{{ asset('frontend_assets/css/icon-font.css') }}" />
   <link rel="stylesheet" href="{{ asset('frontend_assets/css/style.css') }}" />
 
-  <link rel="shortcut icon" type="image/png" href="{{ asset('frontend_assets/img/favicon.png') }}" />
+  <link rel="shortcut icon" type="image/png" href="{{ asset('frontend_assets/img/Split_ride_logo.png') }}" />
 
-  <title>Ride Booking | Exciting for travels</title>
+  <title>SplitRide</title>
 </head>
 
 <body>
@@ -41,14 +41,14 @@
   </div>
   <header class="header">
     <div class="header__logo-box">
-      <img src="./frontend_assets/img/logo-white.png" class="header__logo" alt="This is natural tours logo" />
+      <img src="./frontend_assets/img/Split_ride_logo.png" class="header__logo" alt="This is natural tours logo" />
     </div>
     <div class="header__text-box">
       <h1 class="heading-primary">
-        <span class="heading-primary--main">Bookings</span>
-        <span class="heading-primary--sub">travelers enjoy alot</span>
+        <span class="heading-primary--main">SplitRide</span>
+        <span class="heading-primary--sub">share the cost and make new friends along the way</span>
       </h1>
-      <a href="#" class="btn btn--white btn--animated">Discover our Bookings</a>
+      <a href="/showAllRidesAndSearch" class="btn btn--white btn--animated">Discover our rides</a>
     </div>
   </header>
   <main>
@@ -56,7 +56,7 @@
       <section class="section-about">
         <div class="u-center-text u-margin-bottom-big">
           <h2 class="heading-secondary">
-            Exciting bookings for our travelers
+            EXCITING RIDES FOR OUR USERS
           </h2>
         </div>
         <div class="row">
@@ -77,13 +77,13 @@
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
               expedita dolor dolores laudantium debitis.
             </p>
-            <a href="#" class="btn-text">Learn more &rarr;</a>
+
           </div>
           <div class="col-1-of-2">
             <div class="composition">
-              <img src="{{ asset('frontend_assets/img/nat-1-large.jpg') }}" alt="photo1" class="composition__photo composition__photo--p1" />
-              <img src="{{ asset('frontend_assets/img/nat-2-large.jpg') }}" alt="photo 2" class="composition__photo composition__photo--p2" />
-              <img src="{{ asset('frontend_assets/img/nat-3-large.jpg') }}" alt="photo 3"
+              <img src="{{ asset('frontend_assets/img/pic1.jpeg') }}" alt="photo1" class="composition__photo composition__photo--p1" />
+              <img src="{{ asset('frontend_assets/img/pic2.jpeg') }}" alt="photo 2" class="composition__photo composition__photo--p2" />
+              <img src="{{ asset('frontend_assets/img/pic3.jpeg') }}" alt="photo 3"
                 class="composition__photo composition__photo--p3" />
             </div>
           </div>
@@ -96,11 +96,10 @@
           <div class="feature-box">
             <i class="feature-box__icon icon-basic-world"></i>
             <h3 class="heading-tertiary u-margin-bottom-small">
-              Explore the box
+              Save money with SplitRide
             </h3>
             <div class="feature-box__text">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum
-              adipisci impedit quidem aperiam.
+              Carpooling with SplitRide can save students up to 25% on their transportation costs.
             </div>
           </div>
         </div>
@@ -108,11 +107,10 @@
           <div class="feature-box">
             <i class="feature-box__icon icon-basic-compass"></i>
             <h3 class="heading-tertiary u-margin-bottom-small">
-              Meet nature
+             Go green with SplitRide
             </h3>
             <div class="feature-box__text">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum
-              adipisci impedit quidem aperiam.
+              Using SplitRide can reduce traffic congestion and decrease carbon emissions
             </div>
           </div>
         </div>
@@ -120,11 +118,10 @@
           <div class="feature-box">
             <i class="feature-box__icon icon-basic-map"></i>
             <h3 class="heading-tertiary u-margin-bottom-small">
-              Find your way
+              Earn money driving
             </h3>
             <div class="feature-box__text">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum
-              adipisci impedit quidem aperiam.
+              SplitRide's driver mode offers an opportunity for students to make extra money by providing transportation to their peers
             </div>
           </div>
         </div>
@@ -132,11 +129,10 @@
           <div class="feature-box">
             <i class="feature-box__icon icon-basic-heart"></i>
             <h3 class="heading-tertiary u-margin-bottom-small">
-              Live a health life
+              Community, savings, and environment
             </h3>
             <div class="feature-box__text">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum
-              adipisci impedit quidem aperiam.
+              SplitRide's carpooling feature helps students save money, reduce their carbon footprint, and build a community of like-minded individuals
             </div>
           </div>
         </div>
@@ -144,16 +140,16 @@
     </section>
     <section class="section-tours">
       <div class="u-center-text u-margin-bottom-big">
-        <h2 class="heading-secondary">Most popular Deals</h2>
+        <h2 class="heading-secondary">AVAILABLE RIDES</h2>
       </div>
       <div class="row">
-         @foreach($rides as $ride)
+         @foreach($ourFrontRides as $ride)
         <div class="col-1-of-3">
           <div class="card">
             <div class="card__side card__side--front">
               <div class="card__picture card__picture--1">&nbsp;</div>
               <h4 class="card__heading">
-                <span class="card__heading-span card__heading-span--1"></span>Uber Safest drive</span>
+                <!-- <span class="card__heading-span card__heading-span--1"></span>Uber Safest drive</span> -->
               </h4>
               <div class="card__details">
                 <ul>
@@ -173,14 +169,20 @@
                     <div class="card__cta">
                         <div class="card__price-box">
                         <p class="card__price-only">only</p>
+
+                        @if($ride['price'] != "TPA")
                         <p class="card__price-value">${{ $ride['price'] }}</p>
+                        @else
+                        <p class="card__price-value">{{ $ride['price'] }}</p>
+                        @endif
                         </div>
 
-                            <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Chat now!</a>
+                            <a href="/showMap" class="btn btn--white u-margin-bottom-small">Google Map</a>
+                            <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white u-margin-bottom-small">Private Chat</a>
                             <a href="/groupChatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Group Chat!</a>
-                                <form action="/bookRideWithUser/{{ $ride['id'] }}/{{ Auth::user()->id }}" method="POST">
+                                <form action="/bookRideWithUser/{{ $ride['id'] }}/{{ Auth::user()->id }}" method="POST" id="bookNowForm">
                                     @csrf
-                                    <button type="submit" class="btn btn--white u-margin-top-small">Book now!</button>
+                                    <button type="submit" class="btn btn--white u-margin-top-small" id="book_now_btn">Book now!</button>
                                 </form>
 
                     </div>
@@ -190,9 +192,14 @@
                 <div class="card__cta">
                     <div class="card__price-box">
                     <p class="card__price-only">only</p>
-                    <p class="card__price-value">${{ $ride['price'] }}</p>
+                    @if($ride['price'] != "TPA")
+                        <p class="card__price-value">${{ $ride['price'] }}</p>
+                    @else
+                        <p class="card__price-value">{{ $ride['price'] }}</p>
+                    @endif
                     </div>
-                        <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Chat now!</a>
+                        <a href="/showMap" class="btn btn--white u-margin-bottom-small">Google Map</a>
+                        <a href="/chatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white u-margin-bottom-small">Private Chat</a>
                         <a href="/groupChatWithNewUser/{{ $ride['id'] }}/{{ $ride['userId'] }}" class="btn btn--white">Group Chat!</a>
                         <div class="card__price-box u-margin-top-small">
                         <p class="card__price-only ">This ride is full of capacity</p>
@@ -216,7 +223,7 @@
       </div>
       <div class="row">
       <div class="u-center-text u-margin-top-big">
-        <a href="/showAllRidesAndSearch" class="btn btn--green">Discover all Deals</a>
+        <a href="/showAllRidesAndSearch" class="btn btn--green">Discover all Rides</a>
       </div>
       </div>
 
@@ -240,14 +247,10 @@
           </figure>
           <div class="story__text">
             <h3 class="heading-tertiary u-margin-bottom-small">
-              I had the best week with my family
+              I SAVED A LOT OF MONEY BECAUSE OF SPLITRIDE
             </h3>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum,
-              ratione! Ratione consectetur quae sequi repellat magnam
-              molestiae? Labore, voluptatibus tempora! Lorem ipsum dolor sit,
-              amet consectetur adipisicing elit. Id, iure. Lorem ipsum dolor
-              sit amet. Lorem ipsum dolor sit amet.
+              With SpliteRide, i have reduced my spending on transportation more than 50%. With SpliteRide i don't have to worry about spending too much on my transportation to the university or going back home.
             </p>
           </div>
         </div>
@@ -258,27 +261,23 @@
           </figure>
           <div class="story__text">
             <h3 class="heading-tertiary u-margin-bottom-small">
-              My life is completely different now
+              WITH EACH RIDE I MAKE, NEW FRIENDS I MADE
             </h3>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum,
-              ratione! Ratione consectetur quae sequi repellat magnam
-              molestiae? Labore, voluptatibus tempora! Lorem ipsum dolor sit,
-              amet consectetur adipisicing elit. Id, iure. Lorem ipsum dolor
-              sit amet. Lorem ipsum dolor sit amet.
+              With SplitRide I have expended my circle of friends, i met many friends from different majors and different cultures. More friends, more adventures
             </p>
           </div>
         </div>
       </div>
-      <div class="u-center-text">
+      <!-- <div class="u-center-text">
         <a href="#" class="btn-text">Read all stories &rarr;</a>
-      </div>
+      </div> -->
     </section>
   </main>
   <!-- Footer Designing -->
   <footer class="footer">
     <div class="footer__logo-box">
-      <img src="{{ asset('frontend_assets/img/logo-green-2x.png') }}" alt="Full logo" class="footer__logo" />
+      <img src="{{ asset('frontend_assets/img/Split_ride_logo.png') }}" alt="Full logo" class="footer__logo" />
     </div>
     <div class="row">
       <div class="col-1-of-2">
@@ -304,14 +303,21 @@
       </div>
       <div class="col-1-of-2">
         <p class="footer__copyright">
-          Built my <a href="#" class="footer_link">BookingSite.com</a> for his
-          online course
-          <a href="#" class="footer__link">Advance css and sass</a> .
-          Copyright &copy; by Booking Site
+          Built my <a href="#" class="footer_link">BookingSite.com</a>
         </p>
       </div>
     </div>
   </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+  <script>
+jQuery('#bookNowForm').submit(function(e){
+    e.preventDefault();
+     alert('Your ride is booked');
+
+});
+
+  </script>
   </body>
 
 </html>

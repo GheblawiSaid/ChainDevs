@@ -3,8 +3,6 @@
   $role=Auth::user()->role_id;
 
 ?>
-
-
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -13,6 +11,7 @@
     </a>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
+        <!-- If loggedin user is admin -->
         @if($role == 1)
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
